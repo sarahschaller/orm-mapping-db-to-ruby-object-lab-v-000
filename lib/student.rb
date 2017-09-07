@@ -49,6 +49,31 @@ class Student
     DB[:conn].execute(sql, 12)
   end
 
+  # def self.first_X_students_in_grade_10(X)
+  #   sql = <<-SQL
+  #     SELECT *
+  #     FROM students
+  #     WHERE grade < ?
+  #   SQL
+  #
+  #   DB[:conn].execute(sql, 12)
+  # end
+
+  def self.first_student_in_grade_10
+    sql = <<-SQL
+      SELECT *
+      FROM students
+      WHERE grade = ?
+      LIMIT 1
+    SQL
+
+    DB[:conn].execute(sql, 10).map {|row| self.new_from_db(row)}.first
+  end
+
+  def self.all_students_in_grade_X
+
+  end
+
 
   def save
     sql = <<-SQL
